@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "256922903532",
+    "project_id": "imoto-eswatini",
+    "storage_bucket": "imoto-eswatini.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256922903532:android:0a1d5f14bc9aeba0b0d6c9",
+        "android_client_info": {
+          "package_name": "io.cloutdevelopers.imoto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256922903532-v556tabm4u6dfstgeu5m7sdrbm6q0aak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5wODoTelRPMnUtgvQGTA07Mt3ESva-ko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256922903532-v556tabm4u6dfstgeu5m7sdrbm6q0aak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
