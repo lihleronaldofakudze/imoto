@@ -16,10 +16,10 @@ class CoreScreen extends StatefulWidget {
 class _CoreScreenState extends State<CoreScreen> {
   int currentIndex = 0;
   final bottomTabs = [
-    HomeScreen(),
-    CategoriesScreen(),
-    GaragesScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const CategoriesScreen(),
+    const GaragesScreen(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _CoreScreenState extends State<CoreScreen> {
         onPressed: () {
           Navigator.pushNamed(context, '/add_car');
         },
-        child: Icon(
+        child: const Icon(
           Icons.add_rounded,
           color: Colors.white,
         ),
@@ -39,22 +39,31 @@ class _CoreScreenState extends State<CoreScreen> {
         currentIndex: currentIndex,
         unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.orange,
+        selectedItemColor: Colors.red,
         elevation: 8.0,
         onTap: (index) {
           setState(() {
             currentIndex = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.home), label: 'Home'),
+              icon: FaIcon(
+                FontAwesomeIcons.house,
+                size: 20,
+              ),
+              label: 'Home'),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.car), label: 'Categories'),
+              icon: FaIcon(
+                FontAwesomeIcons.car,
+                size: 20,
+              ),
+              label: 'Categories'),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.warehouse), label: 'Garages'),
+              icon: FaIcon(FontAwesomeIcons.warehouse, size: 20),
+              label: 'Garages'),
           BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.user), label: 'Profile'),
+              icon: FaIcon(FontAwesomeIcons.user, size: 20), label: 'Profile'),
         ],
       ),
     );

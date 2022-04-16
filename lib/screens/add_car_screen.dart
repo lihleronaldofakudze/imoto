@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:imoto/constants.dart';
 import 'package:imoto/models/CurrentUser.dart';
 import 'package:imoto/services/database.dart';
-import 'package:imoto/widgets/loading.dart';
-import 'package:imoto/widgets/okAlertDialog.dart';
+import 'package:imoto/widgets/loading_widget.dart';
 import 'package:imoto/widgets/picked_images_widget.dart';
 import 'package:path/path.dart';
 import 'package:provider/provider.dart';
@@ -19,168 +20,6 @@ class AddCarScreen extends StatefulWidget {
 }
 
 class _AddCarScreenState extends State<AddCarScreen> {
-  final _carBrands = [
-    'Abarth',
-    'Alfa Romeo',
-    'Aston Martin',
-    'Audi',
-    'BMW',
-    'Bentley',
-    'Cadillac',
-    'CAM',
-    'Chana',
-    'Chevrolet',
-    'Chery',
-    'Chrysler',
-    'CMC',
-    'Citroen',
-    'Mitsubishi',
-    'Dacia',
-    'Daewoo',
-    'Daihatsu',
-    'Daimler',
-    'DFSK',
-    'Dodge',
-    'FAW',
-    'Ferrari',
-    'Fiant',
-    'Foton',
-    'Ford',
-    'GoNow',
-    'Geely',
-    'GWM',
-    'Honda',
-    'Honda',
-    'Hyundai',
-    'Hummer',
-    'Infiniti',
-    'Isuzu',
-    'Iveco',
-    'Jaguar',
-    'Jeep',
-    'JMC',
-    'Lamborghini',
-    'Kia',
-    'Lancia',
-    'Land Rover',
-    'LDV',
-    'Lexus',
-    'Lotus',
-    'Maserati',
-    'Mahindra',
-    'Maybach',
-    'Mazda',
-    'Mercedes-Benz',
-    'Mercedes-AMG',
-    'Meiya',
-    'MG',
-    'MINI',
-    'Nissan',
-    'Noble',
-    'Opel',
-    'Peugeot',
-    'Porsche',
-    'Proton',
-    'Renault',
-    'Rover',
-    'Maxus',
-    'Saic',
-    'Saab',
-    'SEAT',
-    'Smart',
-    'SsangYong',
-    'Subaru',
-    'Suzuki',
-    'Tata',
-    'Toyota',
-    'TVR',
-    'Volkswagen',
-    'Volvo',
-    'ZX Auto',
-    'McLaren',
-    'Rolls-Royce',
-    'Changan',
-    'Datsun',
-    'Mercedes-Maybach',
-    'Truimph',
-    'AMC Rambler',
-    'Austin',
-    'Buick',
-    'DKW',
-    'Hillman',
-    'KCC',
-    'Lynx',
-    'MGA',
-    'MGB',
-    'Morris',
-    'Pontiac',
-    'Range Rover',
-    'Valiant',
-    'Vauxhall',
-    'Willys Jeep',
-    'Morgan',
-    'Birkin',
-    'Golden Journey',
-    'Sunbeam',
-    'Backdraft',
-    'KTM',
-    'London',
-    'AC',
-    'Jinbei',
-    'BAW',
-    'Willys',
-    'Austin-Healey',
-    'Ariel',
-    'BAIC',
-    'Oldsmobile',
-    'Haval',
-    'JAC',
-    'Packard',
-    'Puma',
-    'Secma',
-    'De Tomaso',
-    'Lola',
-    'Leyland',
-    'GMC',
-    'Jensen',
-    'Plymouth',
-    'DAF',
-    'Pagani',
-    'Bajaj',
-    'HUMBER',
-    'Shelby',
-    'Asia',
-    'Nash',
-    'Caterham',
-    'Millennium',
-    'Goggomobil'
-  ];
-  final _bodyTypes = [
-    'Cabriolet',
-    'Coupe',
-    'Crew Bus',
-    'Double Cab',
-    'Extended Cab',
-    'Fastback',
-    'Hatchback',
-    'King Cab',
-    'LCV',
-    'Minibus',
-    'MPV',
-    'Panel Van',
-    'Sedan',
-    'Single Cab',
-    'Sportback',
-    'Station Wagon',
-    'Supercab',
-    'SUV'
-  ];
-  final _conditions = ['New', 'Used'];
-  final _engineTypes = ['Automatic', 'Manual'];
-  final _drivenWheels = ['Front', 'Back', 'Both'];
-  final _enginePositions = ['Front', 'Back'];
-  final _fuelTypes = ['Petrol', 'Diesel'];
-
   //Changing Variables
   List<File> images = [];
   bool _loading = false;
@@ -236,28 +75,28 @@ class _AddCarScreenState extends State<AddCarScreen> {
   Widget build(BuildContext context) {
     final currentUser = Provider.of<CurrentUser?>(context);
     return _loading
-        ? Loading()
+        ? const LoadingWidget()
         : Scaffold(
             appBar: AppBar(
-              iconTheme: IconThemeData(color: Colors.white),
-              title: Text(
+              iconTheme: const IconThemeData(color: Colors.white),
+              title: const Text(
                 'Add New Car',
                 style: TextStyle(color: Colors.white),
               ),
               centerTitle: true,
             ),
             body: SingleChildScrollView(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  images.length == 0
+                  images.isEmpty
                       ? Container(
                           child: Center(
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Text(
                                 _tenImages,
-                                style: TextStyle(color: Colors.red),
+                                style: const TextStyle(color: Colors.red),
                               ),
                             ),
                           ),
@@ -265,7 +104,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
                       : PickedImagesWidget(
                           images: images,
                         ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   SizedBox(
@@ -273,32 +112,34 @@ class _AddCarScreenState extends State<AddCarScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: images.length == 0
-                                ? Colors.orange
+                            primary: images.isEmpty
+                                ? Colors.deepOrange
                                 : Colors.red),
                         onPressed: () => _pickImages(),
                         child: Text(
-                          images.length == 0
+                          images.isEmpty
                               ? 'Choose 10 Pictures'
                               : 'Change Pictures',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.white),
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextField(
-                    decoration: InputDecoration(
+                    maxLength: 16,
+                    decoration: const InputDecoration(
                         labelText: 'Car Model', border: OutlineInputBorder()),
                     controller: _modelController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Car Brand', border: OutlineInputBorder()),
-                    items: _carBrands.map((brand) {
+                    items: Constants().carBrands.map((brand) {
                       return DropdownMenuItem(value: brand, child: Text(brand));
                     }).toList(),
                     onChanged: (value) {
@@ -307,14 +148,14 @@ class _AddCarScreenState extends State<AddCarScreen> {
                       });
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Car Body Type',
                         border: OutlineInputBorder()),
-                    items: _bodyTypes.map((type) {
+                    items: Constants().bodyTypes.map((type) {
                       return DropdownMenuItem(value: type, child: Text(type));
                     }).toList(),
                     onChanged: (value) {
@@ -323,14 +164,14 @@ class _AddCarScreenState extends State<AddCarScreen> {
                       });
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Car Condition',
                         border: OutlineInputBorder()),
-                    items: _conditions.map((condition) {
+                    items: Constants().conditions.map((condition) {
                       return DropdownMenuItem(
                           value: condition, child: Text(condition));
                     }).toList(),
@@ -340,14 +181,14 @@ class _AddCarScreenState extends State<AddCarScreen> {
                       });
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Car Fuel Type',
                         border: OutlineInputBorder()),
-                    items: _fuelTypes.map((fuel) {
+                    items: Constants().fuelTypes.map((fuel) {
                       return DropdownMenuItem(value: fuel, child: Text(fuel));
                     }).toList(),
                     onChanged: (value) {
@@ -356,14 +197,14 @@ class _AddCarScreenState extends State<AddCarScreen> {
                       });
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Car Engine Type',
                         border: OutlineInputBorder()),
-                    items: _engineTypes.map((engine) {
+                    items: Constants().engineTypes.map((engine) {
                       return DropdownMenuItem(
                           value: engine, child: Text(engine));
                     }).toList(),
@@ -373,14 +214,14 @@ class _AddCarScreenState extends State<AddCarScreen> {
                       });
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Car Driven Wheels',
                         border: OutlineInputBorder()),
-                    items: _drivenWheels.map((driven) {
+                    items: Constants().drivenWheels.map((driven) {
                       return DropdownMenuItem(
                           value: driven, child: Text(driven));
                     }).toList(),
@@ -390,14 +231,14 @@ class _AddCarScreenState extends State<AddCarScreen> {
                       });
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   DropdownButtonFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Car Engine Positions',
                         border: OutlineInputBorder()),
-                    items: _enginePositions.map((position) {
+                    items: Constants().enginePositions.map((position) {
                       return DropdownMenuItem(
                           value: position, child: Text(position));
                     }).toList(),
@@ -407,76 +248,76 @@ class _AddCarScreenState extends State<AddCarScreen> {
                       });
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextField(
                     keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
+                        const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(
                         labelText: 'Car Fuel Capacity',
                         border: OutlineInputBorder()),
                     controller: _fuelCapacityController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextField(
                     keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
+                        const TextInputType.numberWithOptions(decimal: true),
+                    decoration: const InputDecoration(
                         labelText: 'Car Engine Capacity',
                         border: OutlineInputBorder()),
                     controller: _engineCapacityController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Top Speed', border: OutlineInputBorder()),
                     controller: _topSpeedController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'NO of Seats', border: OutlineInputBorder()),
                     controller: _seatsController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'NO of Doors', border: OutlineInputBorder()),
                     controller: _doorsController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Car Price', border: OutlineInputBorder()),
                     controller: _priceController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextField(
                     maxLines: 4,
                     textAlign: TextAlign.start,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         labelText: 'Seller Comments',
                         border: OutlineInputBorder()),
                     controller: _commentsController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
                   SizedBox(
@@ -487,7 +328,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
                           setState(() {
                             _loading = true;
                           });
-                          if (images.length != 0 &&
+                          if (images.isNotEmpty &&
                               _modelController.text.isNotEmpty &&
                               _brand.isNotEmpty &&
                               _bodyType.isNotEmpty &&
@@ -530,7 +371,7 @@ class _AddCarScreenState extends State<AddCarScreen> {
                                   _loading = false;
                                 });
                                 ScaffoldMessenger.of(context)
-                                    .showSnackBar(new SnackBar(
+                                    .showSnackBar(const SnackBar(
                                   content: Text('Car Added Successful'),
                                 ));
                                 Navigator.pop(context);
@@ -540,20 +381,22 @@ class _AddCarScreenState extends State<AddCarScreen> {
                             setState(() {
                               _loading = false;
                             });
-                            showDialog(
-                                context: context,
-                                builder: (_) => okAlertDialog(
-                                    context: context,
-                                    message:
-                                        'Please enter all required car details'));
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.ERROR,
+                              animType: AnimType.BOTTOMSLIDE,
+                              title: 'Error',
+                              desc: 'Please fill all the fields',
+                              btnOkOnPress: () {},
+                            ).show();
                           }
                         },
-                        child: Text(
+                        child: const Text(
                           'Sell Your Car',
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],

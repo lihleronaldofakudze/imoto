@@ -5,18 +5,17 @@ import 'package:imoto/widgets/glass_container_widget.dart';
 import 'package:imoto/widgets/loading_widget.dart';
 import 'package:imoto/widgets/text_box_widget.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _loading = false;
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return _loading
@@ -47,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Welcome Back, Login.',
+                          'Forgot Password',
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
@@ -58,12 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                       GlassContainerWidget(
-                        height: 420,
+                        height: 290,
                         child: Form(
                           key: _formKey,
                           child: Column(
                             children: [
-                              const Text('Please enter all required details',
+                              const Text('Please enter email to reset password',
                                   style: TextStyle(
                                       fontSize: 18,
                                       color: Colors.white,
@@ -73,28 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   controller: _emailController,
                                   keyboardType: TextInputType.emailAddress,
                                   obscureText: false),
-                              TextBoxWidget(
-                                  hintText: 'Password',
-                                  controller: _passwordController,
-                                  keyboardType: TextInputType.visiblePassword,
-                                  obscureText: true),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/forgot_password');
-                                  },
-                                  child: const Text('Forgot Password?',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -121,9 +98,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 alignment: Alignment.centerLeft,
                                 child: InkWell(
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/register');
+                                    Navigator.pushNamed(context, '/auth');
                                   },
-                                  child: const Text('I don\'t have an account?',
+                                  child: const Text(
+                                      'I just remembered my password',
                                       style: TextStyle(
                                           fontSize: 18,
                                           color: Colors.red,
@@ -146,10 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _loading = true;
     });
-    if (_emailController.text.isNotEmpty &&
-        _passwordController.text.isNotEmpty) {
-      dynamic result = await AuthService().login(
-          email: _emailController.text, password: _passwordController.text);
+    if (_emailController.text.isNotEmpty) {
+      dynamic result =
+          await AuthService().forgotPassword(email: _emailController.text);
 
       if (result != null) {
         setState(() {
@@ -164,8 +141,8 @@ class _LoginScreenState extends State<LoginScreen> {
           context: context,
           dialogType: DialogType.ERROR,
           animType: AnimType.BOTTOMSLIDE,
-          title: 'Login Failed',
-          desc: 'Please check your credentials and try again.',
+          title: 'Error',
+          desc: 'Email is incorrect',
           btnOkOnPress: () {},
         ).show();
       }
@@ -177,8 +154,8 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         dialogType: DialogType.ERROR,
         animType: AnimType.BOTTOMSLIDE,
-        title: 'Login Failed',
-        desc: 'Please check your credentials and try again.',
+        title: 'Error',
+        desc: 'Please fill all fields',
         btnOkOnPress: () {},
       ).show();
     }

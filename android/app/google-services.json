@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "256922903532-qg7cp3hglq40pdtrjs38rlj0j7t7dn1u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.cloutdevelopers.imoto",
+            "certificate_hash": "4a63f902165e7aa60391e1fea22b1c060e119879"
+          }
+        },
+        {
           "client_id": "256922903532-v556tabm4u6dfstgeu5m7sdrbm6q0aak.apps.googleusercontent.com",
           "client_type": 3
         }
